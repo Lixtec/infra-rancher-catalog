@@ -1,0 +1,46 @@
+.catalog:
+  name: "Gogs"
+  version: "v0.11.34"
+  description: "A painless self-hosted Git service"
+  uuid: gogs-0
+  minimum_rancher_version: v1.0.0
+  questions:
+    - variable: VOL_PREFIX
+      description: "Volume prefix"
+      label: "Volume prefix"
+      required: true
+      default: "/var/docker/volume/infra/scm"
+      type: "string"   
+    - variable: GOGS_PASSWORD
+      description: "Gogs db password"
+      label: "Gogs db password"
+      required: true
+      default: "gogs"
+      type: "password"  
+    - variable: GOGS_DB
+      description: "Gogs db"
+      label: "Gogs db"
+      required: true
+      default: "gogs"
+      type: "string"  
+      
+gogs-app:
+  scale: 1
+  health_check:
+    port: 3000
+    interval: 2000
+    initializing_timeout: 20000
+    unhealthy_threshold: 3
+    strategy: recreate
+    healthy_threshold: 2    
+    response_timeout: 2000    
+gogs-db:
+  scale: 1
+  health_check:
+    port: 3306
+    interval: 2000
+    initializing_timeout: 20000
+    unhealthy_threshold: 3
+    strategy: recreate
+    healthy_threshold: 2
+    response_timeout: 2000
