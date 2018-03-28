@@ -11,6 +11,12 @@
       required: true
       default: "/var/docker/volume/infra/scm"
       type: "string"   
+    - variable: VOL_DRIVER
+      description: "Volume driver, exemple rancher-nfs"
+      label: "Volume driver"
+      required: false
+      default: ""
+      type: "string"
     - variable: GOGS_PASSWORD
       description: "Gogs db password"
       label: "Gogs db password"

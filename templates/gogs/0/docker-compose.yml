@@ -7,6 +7,7 @@ gogs-app:
         - gogs-db
     volumes:
         - ${VOL_PREFIX}-gogs-app:/data
+    volume_driver: ${VOL_DRIVER}
 
 gogs-db:
     image: mysql:5.7
@@ -14,6 +15,7 @@ gogs-db:
       io.rancher.container.pull_image: always
     volumes:
         - ${VOL_PREFIX}-gogs-db:/var/lib/mysql 
+    volume_driver: ${VOL_DRIVER}
     environment:
         MYSQL_ROOT_PASSWORD: ${GOGS_PASSWORD}
         MYSQL_DATABASE: ${GOGS_DB}
