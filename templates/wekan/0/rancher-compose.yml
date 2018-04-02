@@ -1,0 +1,49 @@
+version: '2'
+.catalog:
+  name: "Wekan"
+  version: "v1.0.0"
+  description: "The open-source Trello-like kanban (build with Meteor)"
+  uuid: wekan-0
+  minimum_rancher_version: v1.0.0
+  questions:
+    - variable: VOL_PREFIX
+      description: "Volume prefix"
+      label: "Volume prefix"
+      required: true
+      default: "mgt"
+      type: "string"   
+    - variable: mongo_url
+      type: string
+      required: true
+      label: "Mongo Url"
+      description: "Mongo url"
+      default: mongodb://wekan-db/wekan
+    - variable: root_url
+      type: string
+      required: true
+      label: "Wekan url"
+      description: "Url of wekan"
+      default: https://project.portail.dev.lan:443   
+services:
+  wekan-db:
+    scale: 1
+    start_on_create: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 27017
+      unhealthy_threshold: 3
+      initializing_timeout: 20000
+      interval: 2000
+      strategy: recreate
+  wekan-app:
+    scale: 1
+    start_on_create: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 80
+      unhealthy_threshold: 3
+      initializing_timeout: 20000
+      interval: 2000
+      strategy: recreate

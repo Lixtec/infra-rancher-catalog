@@ -1,0 +1,24 @@
+wekan-db:
+  tty: true
+  command:
+  - mongod
+  - --smallfiles
+  - --oplogSize
+  - '128'
+  image: mongo:3.2.12
+  volumes:
+  - ${VOL_PREFIX}-weekan-db-data:/data/db
+  - ${VOL_PREFIX}-weekan-db-conf:/data/configdb
+  stdin_open: true
+  labels:
+    io.rancher.container.pull_image: always
+wekan-app:
+  environment:
+    MONGO_URL: ${mongo_url}
+    ROOT_URL: ${root_url} 
+    MAIL_URL: smtp://serveursmtp.dev.lan:25
+    MAIL_FROM: no-reply@lixtec.fr
+    MAIL_DEBUG: '1'
+  image: mquandalle/wekan    
+  labels:
+    io.rancher.container.pull_image: always
