@@ -19,6 +19,6 @@ wekan-app:
     MAIL_URL: smtp://serveursmtp.dev.lan:25
     MAIL_FROM: no-reply@lixtec.fr
     MAIL_DEBUG: '1'
-  image: mquandalle/wekan    
+  image: wekanteam/wekan    
   labels:
     io.rancher.container.pull_image: always
