@@ -2,7 +2,7 @@ mattermost-app:
   image: lixtec/mattermost:latest
   volumes:
     - ${VOL_PREFIX}-mattermost-db:/var/lib/mysql:rw
-    - ${VOL_PREFIX}-mattermost-config:/mm/config:rw
+    - ${VOL_PREFIX}-mattermost-config:/mm/mattermost/config:rw
     - ${VOL_PREFIX}-mattermost-data:/mm/mattermost/data:rw
     - ${VOL_PREFIX}-mattermost-logs:/mm/mattermost/logs:rw
   stdin_open: true
