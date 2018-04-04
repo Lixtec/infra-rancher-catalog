@@ -1,0 +1,45 @@
+.catalog:
+  name: "NextCloud"
+  version: "v13.0.1"
+  description: "Nextcloud - Enterprise File Sync and Shared"
+  uuid: nextCloud-0
+  minimum_rancher_version: v1.0.0
+  questions:
+    - variable: NEXTCLOUD_PREFIX
+      description: "Nextcloud volume prefix"
+      label: "Nextcloud volume prefix"
+      required: true
+      default: "cloud"
+      type: "string"
+    - variable: MYSQL_ROOT_PASS
+      label: MySQL root password
+      required: true
+      type: password
+    - variable: MYSQL_DATABASE
+      default: nextcloud
+      label: MySQL Database
+      required: true
+      type: string
+    - variable: MYSQL_USER
+      default: nextcloud
+      label: MySQL User
+      required: true
+      type: string
+    - variable: MYSQL_PASS
+      label: MySQL Pass
+      required: true
+      type: password
+
+nextcloud-app:
+  scale: 1
+    
+nextcloud-db:
+  scale: 1
+  health_check:
+    port: 3306
+    interval: 2000
+    initializing_timeout: 20000
+    unhealthy_threshold: 3
+    strategy: recreate
+    healthy_threshold: 2
+    response_timeout: 2000

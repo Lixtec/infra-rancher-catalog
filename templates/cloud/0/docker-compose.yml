@@ -1,0 +1,17 @@
+nextcloud-app:
+    image: nextcloud:12-apache
+    links:
+      - nextcloud-db:mysql
+    volumes:
+      - ${NEXTCLOUD_PREFIX}-nextcloud-app:/var/www/html    
+    volume_driver: rancher-nfs
+nextcloud-db:
+    image: mariadb:10
+    volumes:
+      - ${NEXTCLOUD_PREFIX}-nextcloud-db:/var/lib/mysql 
+    volume_driver: rancher-nfs
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}      
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASS}
