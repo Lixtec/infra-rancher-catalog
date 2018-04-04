@@ -1,0 +1,5 @@
+name: Mattermost
+description: |
+  Mattermost is an outstanding solution for deploying Enterprise ChatOps to increase agility, efficiency and innovation across IT organizations.
+version: v4.2.0
+category: CHAT

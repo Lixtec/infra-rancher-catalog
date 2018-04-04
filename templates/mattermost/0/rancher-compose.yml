@@ -1,0 +1,26 @@
+version: '2'
+.catalog:
+  name: "Mattermost"
+  version: "v4.8.0"
+  description: "Mattermost is an outstanding solution for deploying Enterprise ChatOps to increase agility, efficiency and innovation across IT organizations."
+  uuid: mattermost-0
+  minimum_rancher_version: v1.0.0
+  questions:
+    - variable: VOL_PREFIX
+      description: "Volume prefix"
+      label: "Volume prefix"
+      required: true
+      default: "chat"
+      type: "string"   
+services:
+  mattermost-app:
+    scale: 1
+    start_on_create: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 80
+      unhealthy_threshold: 3
+      initializing_timeout: 20000
+      interval: 2000
+      strategy: recreate
