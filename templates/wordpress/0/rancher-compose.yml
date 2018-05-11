@@ -14,8 +14,8 @@
   - variable: VOL_DRIVER
     description: Volume driver, exemple rancher-nfs
     label: Volume driver
-    required: false
-    default: ''
+    required: true
+    default: 'local'
     type: string
   - variable: WORDPRESS_DB_NAME
     description: WordPress DB Name
