@@ -6,7 +6,7 @@ wordpress-app:
   - wordpress-db
   volume_driver: ${VOL_DRIVER}
   volumes:
-  - ${WORDPRESS_PREFIX}-wordpress-app:/var/www/html
+  - ${VOL_PREFIX}-wordpress-app:/var/www/html
   environment:
     WORDPRESS_DB_HOST: wordpress-db
     WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
@@ -19,7 +19,7 @@ wordpress-db:
   labels:
     io.rancher.container.pull_image: always
   volumes:
-  - ${WORDPRESS_PREFIX}-wordpress-db:/var/lib/mysql
+  - ${VOL_PREFIX}-wordpress-db:/var/lib/mysql
   volume_driver: ${VOL_DRIVER}
   environment:
     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
