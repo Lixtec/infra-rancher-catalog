@@ -1,49 +1,69 @@
-version: '2'
 .catalog:
-  name: "Wekan"
-  version: "v0.79"
-  description: "The open-source Trello-like kanban (build with Meteor)"
-  uuid: wekan-0
+  name: WordPress
+  version: v4.9.5
+  description: WordPress is open source software you can use to create a beautiful website, blog, or app.
+  uuid: wordpress-0
   minimum_rancher_version: v1.0.0
   questions:
-    - variable: VOL_PREFIX
-      description: "Volume prefix"
-      label: "Volume prefix"
-      required: true
-      default: "mgt"
-      type: "string"   
-    - variable: mongo_url
-      type: string
-      required: true
-      label: "Mongo Url"
-      description: "Mongo url"
-      default: mongodb://wekan-db/wekan
-    - variable: root_url
-      type: string
-      required: true
-      label: "Wekan url"
-      description: "Url of wekan"
-      default: https://project.portail.dev.lan:443   
-services:
-  wekan-db:
-    scale: 1
-    start_on_create: true
-    health_check:
-      healthy_threshold: 2
-      response_timeout: 2000
-      port: 27017
-      unhealthy_threshold: 3
-      initializing_timeout: 20000
-      interval: 2000
-      strategy: recreate
-  wekan-app:
-    scale: 1
-    start_on_create: true
-    health_check:
-      healthy_threshold: 2
-      response_timeout: 2000
-      port: 80
-      unhealthy_threshold: 3
-      initializing_timeout: 20000
-      interval: 2000
-      strategy: recreate
+  - variable: VOL_PREFIX
+    description: Volume prefix
+    label: Volume prefix
+    required: true
+    default: /var/docker/volume/infra/cms
+    type: string
+  - variable: VOL_DRIVER
+    description: Volume driver, exemple rancher-nfs
+    label: Volume driver
+    required: false
+    default: ''
+    type: string
+  - variable: WORDPRESS_DB_NAME
+    description: WordPress DB Name
+    label: WordPress DB Name
+    required: true
+    default: wordpress-db
+    type: string
+  - variable: WORDPRESS_DB_USER
+    description: WordPress DB User
+    label: WordPress DB User
+    required: true
+    default: wordpress-user
+    type: string
+  - variable: WORDPRESS_DB_PASSWORD
+    description: WordPress DB Password
+    label: WordPress DB Password
+    required: true
+    default: W0rdPr3ss
+    type: password
+  - variable: WORDPRESS_DB_TABLE_PREFIX
+    description: WordPress DB Table Prefix
+    label: WordPress DB Table Prefix
+    required: true
+    default: wpp
+    type: string
+  - variable: MYSQL_ROOT_PASSWORD
+    description: Maria DB Root Password
+    label: Maria DB Root Password
+    required: true
+    default: W0rdPr3ss-R0ot-M@ria!
+    type: password
+wordpress-app:
+  scale: 1
+  health_check:
+    port: 80
+    interval: 2000
+    initializing_timeout: 20000
+    unhealthy_threshold: 3
+    strategy: recreate
+    healthy_threshold: 2
+    response_timeout: 2000
+wordpress-db:
+  scale: 1
+  health_check:
+    port: 3306
+    interval: 2000
+    initializing_timeout: 20000
+    unhealthy_threshold: 3
+    strategy: recreate
+    healthy_threshold: 2
+    response_timeout: 2000
