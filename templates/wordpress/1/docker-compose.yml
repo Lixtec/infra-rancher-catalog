@@ -1,0 +1,28 @@
+wordpress-app:
+  image: wordpress:5.2.2-apache
+  labels:
+    io.rancher.container.pull_image: always
+  links:
+  - wordpress-db
+  volume_driver: ${VOL_DRIVER}
+  volumes:
+  - ${VOL_PREFIX}-wordpress-app:/var/www/html
+  environment:
+    WORDPRESS_DB_HOST: wordpress-db
+    WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+    WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+    WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+    WORDPRESS_DB_TABLE_PREFIX: ${WORDPRESS_DB_TABLE_PREFIX}
+    
+wordpress-db:
+  image: mariadb:10.4
+  labels:
+    io.rancher.container.pull_image: always
+  volumes:
+  - ${VOL_PREFIX}-wordpress-db:/var/lib/mysql
+  volume_driver: ${VOL_DRIVER}
+  environment:
+    MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+    MYSQL_USER: ${WORDPRESS_DB_USER}
+    MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
